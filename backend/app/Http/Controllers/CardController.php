@@ -121,8 +121,10 @@ class CardController extends Controller
 
     public function moveCard($card_id, $list_id, $token){
         $card = cards::find($card_id);
+        $order = cards::where('list_id',$list_id)->count()+1;
         $card->update([
-            'list_id' => $list_id,          
+            'list_id' => $list_id,
+            'order' => $order,          
         ]);
 
         return response()->json([
